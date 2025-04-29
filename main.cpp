@@ -8,7 +8,24 @@ int main()
 
 	SDL_Window* MyWindow = SDL_CreateWindow("Sample", 640, 480, SDL_WINDOW_OPENGL);
 
-	SDL_Delay(3000);
+	SDL_Renderer* MyRenderer = SDL_CreateRenderer(MyWindow, nullptr);
+
+	bool IsRunning = true;
+	SDL_Event MyEvent;
+	while (IsRunning)
+	{
+		SDL_PollEvent(&MyEvent);
+		switch (MyEvent.type)
+		{
+		case SDL_EVENT_QUIT:
+			IsRunning = false;
+			break;
+		default:
+			break;
+		}
+	}
+
+	SDL_DestroyRenderer(MyRenderer);
 
 	SDL_DestroyWindow(MyWindow);
 
