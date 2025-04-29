@@ -10,6 +10,9 @@ int main()
 
 	SDL_Renderer* MyRenderer = SDL_CreateRenderer(MyWindow, nullptr);
 
+	int PlayerX = 100;
+	int PlayerY = 100;
+
 	bool IsRunning = true;
 	SDL_Event MyEvent;
 	while (IsRunning)
@@ -23,19 +26,19 @@ int main()
 		case SDL_EVENT_KEY_DOWN:
 			if (MyEvent.key.key == SDLK_UP)
 			{
-
+				PlayerY--;
 			}
 			if (MyEvent.key.key == SDLK_DOWN)
 			{
-
+				PlayerY++;
 			}
 			if (MyEvent.key.key == SDLK_LEFT)
 			{
-
+				PlayerX--;
 			}
 			if (MyEvent.key.key == SDLK_RIGHT)
 			{
-
+				PlayerX++;
 			}
 			if (MyEvent.key.key == SDLK_ESCAPE)
 			{
@@ -49,8 +52,10 @@ int main()
 
 		SDL_SetRenderDrawColor(MyRenderer, 0, 0, 0, 0);
 		SDL_RenderClear(MyRenderer);
-		
 
+		SDL_SetRenderDrawColor(MyRenderer, 255, 0, 0, 0);
+		SDL_FRect Player{ (float)PlayerX, (float)PlayerY, 100, 100 };
+		SDL_RenderFillRect(MyRenderer, &Player);
 
 		SDL_RenderPresent(MyRenderer);
 	}
