@@ -23,6 +23,11 @@ int main()
 		default:
 			break;
 		}
+
+		SDL_SetRenderDrawColor(MyRenderer, 0, 0, 0, 0);
+		SDL_RenderClear(MyRenderer);
+
+		SDL_RenderPresent(MyRenderer);
 	}
 
 	SDL_DestroyRenderer(MyRenderer);
