@@ -28,19 +28,38 @@ int main()
 		SDL_RenderClear(MyRenderer);
 
 
-		for (int i = 0; i < 1000; ++i)
+		//for (int i = 0; i < 1000; ++i)
+		//{
+		//	SDL_SetRenderDrawColor(MyRenderer,
+		//		SDL_rand(255),
+		//		SDL_rand(255),
+		//		SDL_rand(255),
+		//		0);
+		//	SDL_FRect MyRect{ SDL_randf() * 640 - 320,
+		//		SDL_randf() * 480 - 240,
+		//		SDL_randf() * 640, SDL_randf() * 480
+		//	};
+		//	SDL_RenderFillRect(MyRenderer, &MyRect);
+		//}
+
+		SDL_SetRenderDrawColor(MyRenderer, 255, 0, 0, 0);
+
+		int Radius = 200;
+		int X = 320;
+		int Y = 240;
+		int PrevCirCleX = Radius * SDL_cos(0) + X;
+		int PrevCirCleY = Radius * SDL_sin(0) + Y;
+		for (int Angle = 0; Angle <= 360; Angle += 10 )
 		{
-			SDL_SetRenderDrawColor(MyRenderer,
-				SDL_rand(255),
-				SDL_rand(255),
-				SDL_rand(255),
-				0);
-			SDL_FRect MyRect{ SDL_randf() * 640 - 320,
-				SDL_randf() * 480 - 240,
-				SDL_randf() * 640, SDL_randf() * 480
-			};
-			SDL_RenderFillRect(MyRenderer, &MyRect);
+			int CircleX = Radius * SDL_cos(Angle * SDL_PI_F / 180) + X;
+			int CircleY = Radius * SDL_sin(Angle * SDL_PI_F / 180) + Y;
+			SDL_RenderLine(MyRenderer, PrevCirCleX, PrevCirCleY,
+				CircleX, CircleY);
+			PrevCirCleX = CircleX;
+			PrevCirCleY = CircleY;
 		}
+		
+
 
 		SDL_RenderPresent(MyRenderer);
 	}
