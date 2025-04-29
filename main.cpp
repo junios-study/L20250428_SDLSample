@@ -10,13 +10,28 @@ int main()
 
 	SDL_Renderer* MyRenderer = SDL_CreateRenderer(MyWindow, nullptr);
 
-	int PlayerX = 100;
-	int PlayerY = 100;
+	float PlayerX = 100;
+	float PlayerY = 100;
 
 	bool IsRunning = true;
 	SDL_Event MyEvent;
+
+	int NumKeys = 0;
+	const bool* KeyStates = SDL_GetKeyboardState(&NumKeys);
+
+	Uint64 CurrentTime = SDL_GetTicks();
+	Uint64 LastTime = SDL_GetTicks();
+	float DeltaSeconds = 0;
 	while (IsRunning)
 	{
+		CurrentTime = SDL_GetTicks();
+
+		DeltaSeconds = (float)(CurrentTime - LastTime) / 1000.f;
+
+		LastTime = CurrentTime;
+
+		//SDL_Log("%4f\n", DeltaSeconds);
+
 		SDL_PollEvent(&MyEvent);
 		switch (MyEvent.type)
 		{
@@ -24,23 +39,23 @@ int main()
 			IsRunning = false;
 			break;
 		case SDL_EVENT_KEY_DOWN:
-			if (MyEvent.key.key == SDLK_UP)
+			if (KeyStates[SDL_SCANCODE_UP])
 			{
-				PlayerY--;
+				PlayerY -= 10;
 			}
-			if (MyEvent.key.key == SDLK_DOWN)
+			if (KeyStates[SDL_SCANCODE_DOWN])
 			{
-				PlayerY++;
+				PlayerY += 10;
 			}
-			if (MyEvent.key.key == SDLK_LEFT)
+			if (KeyStates[SDL_SCANCODE_LEFT])
 			{
-				PlayerX--;
+				PlayerX -= 10;
 			}
-			if (MyEvent.key.key == SDLK_RIGHT)
+			if (KeyStates[SDL_SCANCODE_RIGHT])
 			{
-				PlayerX++;
+				PlayerX += 10;
 			}
-			if (MyEvent.key.key == SDLK_ESCAPE)
+			if (KeyStates[SDL_SCANCODE_ESCAPE])
 			{
 				IsRunning = false;
 			}
@@ -56,6 +71,7 @@ int main()
 		SDL_SetRenderDrawColor(MyRenderer, 255, 0, 0, 0);
 		SDL_FRect Player{ (float)PlayerX, (float)PlayerY, 100, 100 };
 		SDL_RenderFillRect(MyRenderer, &Player);
+
 
 		SDL_RenderPresent(MyRenderer);
 	}
