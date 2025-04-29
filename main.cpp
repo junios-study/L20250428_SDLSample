@@ -27,6 +27,21 @@ int main()
 		SDL_SetRenderDrawColor(MyRenderer, 0, 0, 0, 0);
 		SDL_RenderClear(MyRenderer);
 
+
+		for (int i = 0; i < 1000; ++i)
+		{
+			SDL_SetRenderDrawColor(MyRenderer,
+				SDL_rand(255),
+				SDL_rand(255),
+				SDL_rand(255),
+				0);
+			SDL_FRect MyRect{ SDL_randf() * 640 - 320,
+				SDL_randf() * 480 - 240,
+				SDL_randf() * 640, SDL_randf() * 480
+			};
+			SDL_RenderFillRect(MyRenderer, &MyRect);
+		}
+
 		SDL_RenderPresent(MyRenderer);
 	}
 
